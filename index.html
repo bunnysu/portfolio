@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Primary Meta Tags -->
+    <title>Portfolio</title>
+    <meta name="title" content="Portfolio Template - Open source" />
+    <meta
+      name="description"
+      content="Build or customize your portfolio website using this super easy template. Free to use if you are a member of the community or a contributor to this project"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://github.com/bunnysu/portfolio"
+    />
+    <meta property="og:title" content="Portfolio Template - Open source" />
+    <meta
+      property="og:description"
+      content="Build or customize your portfolio website using this super easy template. Free to use if you are a member of the community or a contributor to this project"
+    />
+    <meta
+      property="og:image"
+      content="https://user-images.githubusercontent.com/62628408/150613011-b78a7f5a-0af1-4312-aab0-0022e7258693.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://github.com/bunnysu/portfolio"
+    />
+    <meta property="twitter:title" content="Portfolio Template - Open source" />
+    <meta
+      property="twitter:description"
+      content="Build or customize your portfolio website using this super easy template. Free to use if you are a member of the community or a contributor to this project"
+    />
+    <meta
+      property="twitter:image"
+      content="https://user-images.githubusercontent.com/62628408/150613011-b78a7f5a-0af1-4312-aab0-0022e7258693.png"
+    />
+
+    <!-- Link -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/favicon/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon/favicon-16x16.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/favicon/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="assets/favicon/android-chrome-192x192.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="512x512"
+      href="assets/favicon/android-chrome-512x512.png"
+    />
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico" />
+    <link rel="manifest" href="assets/favicon/site.webmanifest" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+      integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/utilities.css" />
+  </head>
+  <body>
+    <section id="hero">
+      <!-- Navbar -->
+      <nav class="navbar">
+        <div class="container">
+          <!-- Logo -->
+          <h1 id="logo">
+            <a href="https://github.com/bunnysu/portfolio"
+              ><img src="./assets/logo.png" alt="Your Logo"
+            /></a>
+          </h1>
+          <!-- Navbar links -->
+          <ul class="nav-menu">
+            <li><a class="nav-link" href="#hero">HOME</a></li>
+            <li><a class="nav-link" href="#about">ABOUT</a></li>
+            <li><a class="nav-link" href="#skills">SKILLS</a></li>
+            <li><a class="nav-link" href="#projects">PROJECTS</a></li>
+            <li><a class="nav-link" href="#contact">CONTACT</a></li>
+            <!-- <li>
+              <a
+                class="nav-link btn btn-primary"
+                href="https://github.com/bunnysu/portfolio"
+                >RESUME <i class="fas fa-arrow-right"></i
+              ></a>
+            </li> -->
+
+            <!-- Toggle switch -->
+            <div class="theme-switch">
+              <input type="checkbox" id="switch" />
+              <label class="toggle-icons" for="switch">
+                <img class="moon" src="assets/moon.svg" />
+                <img class="sun" src="assets/sun.svg" />
+              </label>
+            </div>
+            <!-- Hamburger menu -->
+          </ul>
+          <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+          </div>
+        </div>
+      </nav>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  // Function to remove 'active' class from all links
+  function removeActiveClasses() {
+    navLinks.forEach(link => link.classList.remove('active'));
+  }
+
+  // Function to add 'active' class to the matching link
+  function addActiveClass(id) {
+    const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+    if (activeLink) {
+      activeLink.classList.add('active');
+    }
+  }
+
+  // Observer options
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.5 // Trigger when 50% of the section is in view
+  };
+
+  // Intersection Observer callback
+  function observerCallback(entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        removeActiveClasses();
+        addActiveClass(entry.target.id);
+      }
+    });
+  }
+
+  // Create an intersection observer
+  const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+  // Observe each section
+  sections.forEach(section => observer.observe(section));
+
+  // Scroll event listener for edge cases
+  window.addEventListener('scroll', () => {
+    let currentSection = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+
+      if (window.scrollY >= sectionTop - sectionHeight * 0.5) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    removeActiveClasses();
+    addActiveClass(currentSection);
+  });
+});
+
+      </script>
+      
+
+      <section  class="header-container">
+        <img
+          class="profile-image"
+          src="assets/susu.PNG"
+          alt=""
+        />
+        <h1><span class="neon-green">Hey there!, I'm-</span> Su Wai Wai Tun.</h1>
+
+        <div class="content-text">
+          <h2>Future IT Innovator on a Mission</h2>
+          <h2>to Make a Difference in Tech.</h2>
+
+          <p>
+            Turning ideas into impactful solutions through technology and innovation.
+          </p>
+        </div>
+        <a
+          href="https://github.com/bunnysu/portfolio"
+          class="btn btn-secondary"
+          target="_blank"
+          >Connect With Me</a
+        >
+      </section>
+    </section>
+    
+    <!-- About Me Section -->
+<section id="about" class="about-container container">
+  <div class="content-text">
+    
+    <p class="section-description">Get To Know More</p><h1 class="section-title">About Me</h1>
+  </div>
+  <div class="about-content">
+    <div class="about-image">
+      <img src="assets/susu1.jpg" alt="Profile Picture" />
+    </div>
+    <div class="about-info">
+      <div class="education-box">
+        <h3>Education</h3>
+        <p>University Of Information Technology</p>
+        <p>Third Year, CS</p>
+      </div>
+      <p class="about-description">
+        As an IT student with a passion for building efficient systems and creative solutions, I thrive on solving complex problems and staying ahead of technological advancements. From developing robust software to optimizing network performance, I’m committed to delivering results that exceed expectations. With a focus on continuous learning, I stay updated on the latest trends and advancements in technology to deliver high-quality results.
+      </p>
+    </div>
+  </div>
+</section>
+<!--skills-->
+<section id="skills" class="skills-section">
+  <h2 class="section-title">My Skills</h2>
+  <p class="section-description">A breakdown of my technical skills and experience levels.</p>
+
+  <div class="skills-container">
+      <div class="skill-box">
+          <i class="fab fa-html5"></i>
+          <label>HTML</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 99%;" data-skill="99%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fab fa-css3-alt"></i>
+          <label>CSS</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 99%;" data-skill="99%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fab fa-bootstrap"></i>
+          <label>Bootstrap</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 60%;" data-skill="60%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fab fa-js"></i>
+          <label>JavaScript</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 70%;" data-skill="70%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fas fa-database"></i>
+          <label>MySQL</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 90%;" data-skill="90%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fab fa-php"></i>
+          <label>PHP</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 90%;" data-skill="90%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fab fa-laravel"></i>
+          <label>Laravel</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 20%;" data-skill="20%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+        <i class="fab fa-laravel"></i>
+        <label>C++</label>
+        <div class="skill-bar">
+            <div class="progress" style="width: 50%;" data-skill="50%"></div>
+        </div>
+    </div>
+
+      <div class="skill-box">
+          <i class="fab fa-python"></i>
+          <label>Python</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 20%;" data-skill="20%"></div>
+          </div>
+      </div>
+
+      <div class="skill-box">
+          <i class="fab fa-java"></i>
+          <label>Java</label>
+          <div class="skill-bar">
+              <div class="progress" style="width: 20%;" data-skill="20%"></div>
+          </div>
+      </div>
+  </div>
+</section>
+
+    <!--projects-->
+    <section id="projects" class="projects-section" class="about-container container">
+      <div class="container">
+        <h2>All Creative Works.</h2>
+        <p>Here's some of my projects that I have worked on.</p>
+        <a href="#more" class="explore-link">Explore more →</a>
+    
+        <div class="projects-grid">
+          <!-- Project Card 1 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="./assets/proj1.png" alt="Opiniometer project preview" class="project-image" />
+            </div>
+            <div class="project-content">
+              <h3>LOTAYA Myanmar Traditional Restaurant</h3>
+              <div class="tags">
+                <span class="tag">Html</span>
+                <span class="tag">Css</span>
+                <span class="tag">JavaScript</span>
+              </div>
+              <p>A website showcasing a Myanmar traditional restaurant, highlighting its cultural heritage through design, features, and content. It includes sections for the restaurant's menu, history, services, location, and contact details, aiming to provide an authentic and user-friendly experience for customers.</p>
+              <a href="https://example.com" class="external-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+    
+          <!-- Project Card 2 -->
+          <div class="project-card">
+            <div class="project-image-container">
+              <img src="./assets/proj2.png" alt="Creative@home project preview" class="project-image" />
+            </div>
+            <div class="project-content">
+              <h3>LUDO Book Paradise</h3>
+              <div class="tags">
+                <span class="tag">Html</span>
+                <span class="tag">Bootstrap</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">PHP</span>
+                <span class="tag">MySQL</span>
+              </div>
+              <p>LUDO BOOK PARADISE is a free platform
+                designed to provide students with easy
+                access to high-quality educational e-books.</p>
+              <a href="https://example.com" class="external-link" target="_blank">
+                <i class="fas fa-external-link-alt"></i>
+              </a>
+            </div>
+          </div>
+  
+          <!-- Project Card 2 -->
+          <div class="project-card">
+              <div class="project-image-container">
+                <img src="./assets/proj3.jpg" alt="Creative@home project preview" class="project-image" />
+              </div>
+              <div class="project-content">
+                <h3>AI System For Bird Classification</h3>
+                <div class="tags">
+                  <span class="tag">Python</span>
+                  <span class="tag">React</span>
+                </div>
+                <p>This project presents an AI-based bird classification
+                  system that uses TensorFlow and the EfficientNetB0
+                  model to accurately identify bird species from
+                  images.</p>
+                <a href="https://example.com" class="external-link" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
+  
+            <!-- Project Card 2 -->
+          <div class="project-card">
+              <div class="project-image-container">
+                <img src="./assets/proj4.jpg" alt="Creative@home project preview" class="project-image" />
+              </div>
+              <div class="project-content">
+                <h3>Modern Restaurant Management System</h3>
+                <div class="tags">
+                  <span class="tag">Java</span>
+                </div>
+                <p>Modern Restaurant Management System is a Java-based system to streamline and automate restaurant operations. It serves as an efficient tool for restaurant owner and staff to manage orders and menus.</p>
+                <a href="https://example.com" class="external-link" target="_blank">
+                  <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
+    
+          <!-- Add more project cards as needed -->
+        </div>
+      </div>
+    </section>
+    
+    <!--footer-->
+    <section  id="contact" class="contact-section">
+      <h1 class="contact-title">Keep In Touch.</h1>
+  <p class="contact-text">I'm currently specializing in <span class="highlight">Front-end Development</span>.<br>
+    Feel free to get in touch and talk more about your projects.</p>
+
+  <div class="contact-buttons">
+    <a href="https://www.linkedin.com/" target="_blank" class="icon-link">
+      <img src="https://img.icons8.com/material-outlined/24/ffffff/linkedin--v1.png" alt="LinkedIn"/> LinkedIn
+    </a>
+    <a href="mailto:example@example.com" class="icon-link">
+      <img src="https://img.icons8.com/material-outlined/24/ffffff/email.png" alt="Email"/> Email
+    </a>
+    <a href="path/to/resume.pdf" target="_blank" class="icon-link">
+      <img src="https://img.icons8.com/material-outlined/24/ffffff/resume.png" alt="Resume"/> Resume
+    </a>
+  </div>
+
+  <p class="foot">
+    Designed and Developed by Su Wai Wai Tun.<br>
+  </p>
+    </section>
+
+
+
+    
+    <script src="js/script.js"></script>
+  </body>
+</html>
